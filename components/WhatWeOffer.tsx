@@ -9,19 +9,27 @@ const highlightWords: Record<string, string> = {
   brand: 'font-bold text-[#FE5A1D]',
   horizons: 'font-bold text-[#FE5A1D]',
   'CONVERSION FOCUSED': 'font-bold text-[#FE5A1D] italic',
-  STRATEGIC: 'font-bold text-[#FE5A1D] italic',
-  'DATA-DRIVEN': 'font-bold text-[#FE5A1D] italic',
-  SEO: 'font-bold underline'
+  STRATEGIC: 'font-normal text-[#FE5A1D] italic',
+  DATA: 'font-bold text-[#FE5A1D] italic',
+  DRIVEN: 'font-bold text-[#FE5A1D] italic',
+  SEO: 'font-bold underline',
+
+  // symbols
+  '—': 'text-[#FE5A1D]',
+  '/': 'text-[#FE5A1D]',
 }
 
 /* =======================
    TEXT RENDER FUNCTION
 ======================= */
 function renderText(text: string) {
-  const regex = new RegExp(
-    `(${Object.keys(highlightWords).join('|')})`,
-    'gi'
-  )
+  const keys = Object.keys(highlightWords)
+    .sort((a, b) => b.length - a.length) // longest first
+    .map(key =>
+      key.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
+    )
+
+  const regex = new RegExp(`(${keys.join('|')})`, 'gi')
 
   return text.split(regex).map((part, index) => {
     const matchKey = Object.keys(highlightWords).find(
@@ -59,43 +67,51 @@ export default function Services() {
     },
     {
       number: '03',
-      title: 'Search Engine Optimization',
+      title: 'Search-Engine Optimization',
       description:
         'STRATEGIC, DATA-DRIVEN SEO that punches your brand to the top of search results — and keeps it there.'
     }
   ]
 
   return (
-    <section className="bg-black px-8 py-10 mb-16">
+    <section className="bg-black px-8 py-5 h-screen">
       {/* Section Heading */}
-      <h2 className="text-[60px] font-normal mb-30">
-        <span className="text-white">[</span>{' '}
-        <span className="text-[#FE5A1D] italic">WHAT WE OFFER</span>{' '}
-        <span className="text-white">]</span>
+      <h2 className="text-[60px] font-normal ml-8 mb-35">
+        <span className="text-white font-black italic">[</span>{' '}
+        <span className="text-[#FE5A1D] font-light tracking-wider italic">
+          WHAT WE OFFER
+        </span>{' '}
+        <span className="text-white font-black italic">]</span>
       </h2>
 
       {/* Services List */}
-      <div className="max-w-5xl ml-auto space-y-8">
+      <div className="max-w-[84%] ml-auto space-y-8">
         {services.map(service => (
           <div
             key={service.number}
             className="border-t-2 border-dashed border-white pt-8"
           >
-            <div className="flex gap-16">
+            <div className="flex gap-20">
               {/* Number */}
-              <div className="w-24 flex-shrink-0">
-                <span className="text-white text-[24px] italic font-bold">
+              <div className="flex items-center text-center w-24">
+                <span className="text-white text-[26px] italic font-light">
                   {service.number}
                 </span>
               </div>
 
               {/* Content */}
-              <div className="flex gap-[60px] items-start">
-                <h3 className="font-bold text-[24px] text-center italic min-w-[200px]">
+              <div className="flex gap-[60px leading-tight">
+                <h3 className="flex items-center justify-center min-w-[180px] font-light text-[26px] italic text-center text-white">
                   {service.title}
                 </h3>
 
-                <p className="text-gray-300 text-[24px] w-full italic leading-relaxed">
+              </div>
+              <div className="flex items-start leading-tight">
+                {/* <h3 className="font-bold text-[24px] italic  items-start text-center min-w-[200px] text-white">
+                  {service.title}
+                </h3> */}
+
+                <p className="text-white font-light text-[26px] w-[99%] italic">
                   {renderText(service.description)}
                 </p>
               </div>

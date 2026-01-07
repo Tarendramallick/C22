@@ -2,12 +2,12 @@ import Image from "next/image"
 
 export default function Quote() {
   return (
-    <section className="bg-black px-8 py-10 mb-16">
+    <section className="bg-black h-screen">
       <div className="w-full mx-auto">
         <h2 className="text-[180px] font-bold italic leading-tight">
 
           <span className="block text-white">
-            "WE DRIVE
+            “WE DRIVE
           </span>
 
           <span className="block text-white text-right mr-30">
@@ -29,7 +29,7 @@ export default function Quote() {
               />
             </span>
 
-            <span className="text-white">"</span>
+            <span className="italic text-white">”</span>
           </span>
 
         </h2>

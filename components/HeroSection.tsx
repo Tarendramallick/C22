@@ -28,7 +28,7 @@ export default function Hero() {
 
             {/* Logo Image (Left) */}
             <Image
-              src="/herologo.png"
+              src="/heroLogo.png"
               alt="C22 Logo"
               width={130}
               height={75}
