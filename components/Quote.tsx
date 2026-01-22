@@ -1,4 +1,5 @@
 import Image from "next/image"
+import SwingUnderline from "./reusableComponents/SwingUnderline"
 
 export default function Quote() {
   return (
@@ -15,10 +16,12 @@ export default function Quote() {
           </span>
 
           <span className="block">
-            <span className="ml-35 text-[#FE5A1D]">BRAND</span>
+            <span className="ml-35 font-extrabold text-[#FE5A1D]">BRAND</span>
+            <span className="ml-16 text-white">FWRD"</span>
+              <SwingUnderline className="flex relative mt-2 -top-18 left-[950px]" width={390} />
 
             {/* FWRD IMAGE */}
-            <span className="inline-block ml-6 align-middle">
+            {/* <span className="inline-block ml-6 align-middle">
               <Image
                 src="/FWRD.png"
                 alt="FWRD"
@@ -27,9 +30,7 @@ export default function Quote() {
                 className="object-contain"
                 priority
               />
-            </span>
-
-            <span className="italic text-white">”</span>
+            </span> */}
           </span>
 
         </h2>
