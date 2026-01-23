@@ -38,7 +38,7 @@ export default function ContactForm() {
         <form onSubmit={handleSubmit} className="space-y-6 h-[570px] border border-dashed border-[#FE5A1D] px-30 py-20 rounded-[20px]">
             <div className="grid grid-cols-2 border-b border-dashed border-[#FE5A1D] gap-8 mb-16">
                 <div>
-                    <p className="text-[26px] italic font-bold uppercase tracking-wider mb-2">DONT GET STUCK WITH BAD MARKETING</p>
+                    <p className="text-[26px] italic font-bold uppercase tracking-lighter mb-2">DONT GET STUCK WITH BAD MARKETING</p>
                     {/* <h3 className="text-[26px] italic font-black">BAD MARKETING</h3> */}
                 </div>
                 <div className="relative">
