@@ -1,5 +1,7 @@
 'use client'
 
+import SelectUnderline from "./reusableComponents/SelectUnderline"
+
 /* =======================
    HIGHLIGHT CONFIG
 ======================= */
@@ -16,6 +18,7 @@ const highlightWords: Record<string, string> = {
 
   // symbols
   '—': 'text-[#FE5A1D]',
+  '-': 'text-[#FE5A1D]',
   '/': 'text-[#FE5A1D]',
 }
 
@@ -24,14 +27,30 @@ const highlightWords: Record<string, string> = {
 ======================= */
 function renderText(text: string) {
   const keys = Object.keys(highlightWords)
-    .sort((a, b) => b.length - a.length) // longest first
+    .sort((a, b) => b.length - a.length)
     .map(key =>
       key.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
     )
 
-  const regex = new RegExp(`(${keys.join('|')})`, 'gi')
+  const regex = new RegExp(`(${keys.join('|')}|SEO)`, 'gi')
 
   return text.split(regex).map((part, index) => {
+    // 🎯 Custom SEO underline
+    if (part.toLowerCase() === 'seo') {
+      return (
+        <span key={index} className="relative inline-block font-bold">
+          SEO
+          <SelectUnderline
+            className="absolute -left-1 -bottom-6"
+            width={55}
+            waves={8}
+            strokeWidth={23}
+          />
+        </span>
+      )
+    }
+
+    // Existing highlights
     const matchKey = Object.keys(highlightWords).find(
       key => key.toLowerCase() === part.toLowerCase()
     )
@@ -47,6 +66,7 @@ function renderText(text: string) {
     return <span key={index}>{part}</span>
   })
 }
+
 
 /* =======================
    COMPONENT
@@ -74,47 +94,72 @@ export default function Services() {
   ]
 
   return (
-    <section className="bg-black px-8 py-5 h-screen">
+    <section className="bg-black px-8 md:px-12 py-6 min-h-screen">
       {/* Section Heading */}
-      <h2 className="text-[60px] font-normal ml-8 mb-35">
-        <span className="text-white font-black italic">[</span>{' '}
-        <span className="text-[#FE5A1D] font-light tracking-wider italic">
+      <h2 className="text-[40px] md:text-[60px] mb-30 ml-4 md:ml-8">
+        <span className="text-white font-black mr-4 italic">[</span>
+        <span className="text-[#FE5A1D] font-light italic tracking-widest mx-2">
           WHAT WE OFFER
-        </span>{' '}
-        <span className="text-white font-black italic">]</span>
+        </span>
+        <span className="text-white font-black ml-4 italic">]</span>
       </h2>
 
       {/* Services List */}
-      <div className="max-w-[84%] ml-auto space-y-8">
+      <div className="max-w-[82%] ml-auto">
         {services.map(service => (
           <div
             key={service.number}
-            className="border-t-2 border-dashed border-white pt-8"
+            className="border-t-2 border-dashed border-white py-10"
           >
-            <div className="flex gap-20">
+            {/* GRID: Desktop → Mobile */}
+            <div
+              className="
+                grid
+                grid-cols-[80px_240px_1fr]
+                items-center
+                gap-16
+
+                max-md:grid-cols-1
+                max-md:gap-3
+              "
+            >
               {/* Number */}
-              <div className="flex items-center text-center w-24">
-                <span className="text-white text-[26px] italic font-light">
-                  {service.number}
-                </span>
-              </div>
+              <span
+                className="
+                  text-white italic font-light
+                  text-[26px]
 
-              {/* Content */}
-              <div className="flex gap-[60px leading-tight">
-                <h3 className="flex items-center justify-center min-w-[180px] font-light text-[26px] italic text-center text-white">
-                  {service.title}
-                </h3>
+                  max-md:text-[18px]
+                  max-md:opacity-70
+                "
+              >
+                {service.number}
+              </span>
 
-              </div>
-              <div className="flex items-start leading-tight">
-                {/* <h3 className="font-bold text-[24px] italic  items-start text-center min-w-[200px] text-white">
-                  {service.title}
-                </h3> */}
+              {/* Title */}
+              <h3
+                className="
+                  text-white italic font-light text-center
+                  text-[26px] leading-tight
 
-                <p className="text-white font-light text-[26px] w-[99%] italic">
-                  {renderText(service.description)}
-                </p>
-              </div>
+                  max-md:text-[22px]
+                "
+              >
+                {renderText(service.title)}
+              </h3>
+
+              {/* Description */}
+              <p
+                className="
+                  text-white italic font-light
+                  text-[26px] leading-tight
+
+                  max-md:text-[18px]
+                  max-md:leading-snug
+                "
+              >
+                {renderText(service.description)}
+              </p>
             </div>
           </div>
         ))}

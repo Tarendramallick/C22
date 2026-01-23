@@ -4,9 +4,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import SelectUnderline from './reusableComponents/SelectUnderline';
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue,} from "@/components/ui/select";
+import { useState } from 'react';
+
+
 
 
 export default function Hero() {
+
+  const [open, setOpen] = useState(false)
   return (
     <section className="bg-white py-6">
       {/* Hero Wrapper */}
@@ -42,7 +47,7 @@ export default function Hero() {
 
             {/* Globe Icon */}
             <div className="relative">
-              <Select defaultValue="en">
+              <Select open={open} onOpenChange={setOpen}  defaultValue="en">
                 <SelectTrigger
                   className="w-10 h-10 border-none bg-transparent shadow-none p-0 focus:ring-0"
                 >
@@ -56,21 +61,34 @@ export default function Hero() {
                 </SelectTrigger>
 
                 <SelectContent align="end" className="
-              absolute
-                bg-white
-                border-b border-[#FE5A1D]
-                rounded-2xl
-                p-3
-                w-[130px]
-                h-[160px]
-                -top-10
-                text-white
-                shadow-xl
-              ">
-                  <SelectItem value="en">English</SelectItem>
-                  <SelectItem value="ja">日本語</SelectItem>
-                  <SelectItem value="hi">हिंदी</SelectItem>
+                  relative bg-white border-b border-white rounded-bl-3xl p-3 w-[100px] h-[250px]
+                    -top-28
+                    -right-10
+                    text-white
+                    justify-center
+                    transition-all
+                    items-end
+                    shadow-none
+                  ">  
+                  <Image
+                    src="/Frame.svg"
+                    alt="Language"
+                    width={38}
+                    height={38}
+                    className="object-fit justify-center items-center cursor-pointer"
+                  />
+                  <SelectItem className="text-black text-lg font-bold text-center" value="en">JP</SelectItem>
+                  <SelectItem className="text-black text-lg font-bold text-center" value="ja">ENG</SelectItem>
+                  <SelectItem className="text-black text-lg font-bold text-center" value="hi">AR</SelectItem>
                 </SelectContent>
+                {open && (
+                  <>
+                    <div className="absolute top-[182px] -left-[18px] w-[90px] h-[70px] bg-black rounded-4xl shadow-md z-20" />
+                    <div className="absolute top-[182px] left-10 w-[40px] h-[40px] bg-white z-10" />
+                    <div className="absolute -top-[38px] -left-[138px] w-[90px] h-[70px] bg-black rounded-4xl shadow-md z-20" />
+                    <div className="absolute -top-[40px] -left-20 w-[40px] h-[40px] bg-white z-10" />
+                  </>
+                )}
               </Select>
             </div>
 
@@ -94,8 +112,8 @@ export default function Hero() {
               </h2>
 
               {/* CTA */}
-              <button className="relative mt-4 inline-flex items-center w-[263px] h-[60px] gap-3 border border-white rounded-[15px] pr-4">
-                <span className="bg-[#FE5A1D] h-full w-[30%] flex items-center justify-center rounded-l-[15px]">
+              <button className="relative mt-4 inline-flex items-center w-[220px] h-[50px] gap-3 border border-white rounded-[15px] pr-4">
+                <span className="bg-[#FE5A1D] h-full w-[20%] flex items-center justify-center rounded-l-[15px]">
                   <Image
                     src="/arrow.png"
                     alt="arrow"
@@ -104,13 +122,13 @@ export default function Hero() {
                   />
                 </span>
 
-                <p className="text-lg font-bold text-white italic">
-                  Scale Your Brand
+                <p className="text-sm font-bold text-white italic">
+                  SCALE YOUR BRAND
                 </p>
 
                 <SelectUnderline
-                  className="absolute top-2 left-20"
-                  width={154}
+                  className="absolute top-1 left-13"
+                  width={148}
                   waves={24}
                   strokeWidth={23}
                 />
